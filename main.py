@@ -79,6 +79,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
 from sklearn.neural_network import MLPClassifier
+from sklearn.preprocessing import StandardScaler
 
 # seed = 5
 # np.random.seed(seed)
@@ -88,15 +89,15 @@ from sklearn.neural_network import MLPClassifier
 app = Flask(__name__)
 
 df = pd.read_pickle('model/modelo_rede_neural.pkl')
-df2 = df.astype('int')
+dados = pd.read_csv('Airlines_Processado.csv')
 #
-X = df2[['Time', 'Length', 'Airline', 'AirportFrom', 'AirportTo', 'DayOfWeek']]
-y = df2['Delay']
+X = [['Time', 'Length', 'Airline', 'AirportFrom', 'AirportTo', 'DayOfWeek']]
+y = ['Delay']
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+# X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
 mlp = MLPClassifier(hidden_layer_sizes=(10, 10), max_iter=100, batch_size=10)
-mlp.fit(X_train, y_train)
+# mlp.fit(X_train, y_train)
 
 
 @app.route('/predict', methods=['POST'])
@@ -104,26 +105,19 @@ def predict():
 
     data = request.get_json()
     X_pred = pd.DataFrame([data])
-    y_pred = mlp.predict(X_pred)
+    # y_pred = mlp.predict(X_pred)
+
+    print(X_pred)
 
     time = request.args['Time']
-    print(time)
-    print(data)
-
-    teste = np.array([[time]])
-
-    classe = df.predict(teste)
-
-    # length = request.args['Length']
-    # airline = request.args['Airline']
-    # airportFrom = request.args['AirportFrom']
-    # airportTo = request.args['AirportTo']
-    # dayOfWeek = request.args['DayOfWeek']
-
-    # print(time, length, airline, airportFrom, airportTo, dayOfWeek)
+    length = request.args['Length']
+    airline = request.args['Airline']
+    airportFrom = request.args['AirportFrom']
+    airportTo = request.args['AirportTo']
+    dayOfWeek = request.args['DayOfWeek']
 
 
-    return '<p>ois</p>'
+    return f'<h3>tempo: {time}; distância: {length}; companhia: {airline}; local de partida: {airportFrom}; destino: {airportTo}; dia: {dayOfWeek}</h3>'
     # return jsonify(predictions=y_pred.tolist())
 
 
