@@ -71,12 +71,14 @@
 # if __name__ == "__main__":
 #     app.run(debug=True)
 
+import joblib
 import pandas as pd
 import numpy as np
 from flask import Flask, request, jsonify
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
-from sklearn.preprocessing import LabelEncoder
+from sklearn.naive_bayes import GaussianNB
+from sklearn.neural_network import MLPClassifier
 
 # Configurações iniciais
 seed = 5
@@ -84,49 +86,60 @@ np.random.seed(seed)
 pd.set_option('display.max_columns', 25)
 
 # Inicializar o aplicativo Flask
+model = joblib.load('model/modelo_rede_neural.pkl')
 app = Flask(__name__)
 
 # Carregar e preparar os dados (ajustar o caminho do arquivo conforme necessário)
-df = pd.read_csv('Airlines_Processado.csv')
+df = pd.read_pickle('model/modelo_rede_neural.pkl')
 # df = df.drop(['Date'], axis=1)
 # df2 = df.astype('int')
 
 # Preparar dados para o modelo
+# X = df[['Time', 'Length', 'Airline', 'AirportFrom', 'AirportTo', 'DayOfWeek']]
+# y = df['Delay']
 
-le = LabelEncoder()
 
-df['Airline'] = le.fit_transform(df['Airline'])
-df['AirportFrom'] = le.fit_transform(df['AirportFrom'])
-df['AirportTo'] = le.fit_transform(df['AirportTo'])
-df['DayOfWeek'] = le.fit_transform(df['DayOfWeek'])
-df['Delay'] = le.fit_transform(df['Delay'])
 
-X = df[['Time', 'Length', 'Airline', 'AirportFrom', 'AirportTo', 'DayOfWeek']]
-y = df['Delay']
+# Supondo que 'sua_coluna' seja a coluna que você está tentando converter
+# df['Airline'] = pd.to_numeric(df['Airline'], errors='coerce')
+#
+# # Agora, você pode lidar com os valores NaN ou prosseguir com a conversão
+# df['Airline'] = df['Airline'].fillna(0).astype(int)
 
-# Treinar o modelo de Random Forest
-random_forest = RandomForestClassifier(n_estimators=100)
-random_forest.fit(X, y)
+mlp = MLPClassifier()
+# mlp.fit(X, y)
 
 # Endpoint para fazer previsões
+
 @app.route('/predict', methods=['POST'])
 def predict():
-    # data = request.get_json()
-    # X_pred = pd.DataFrame([data])
-    # y_pred = random_forest.predict(X_pred)
-    # return jsonify(predictions=y_pred.tolist())
 
-    time = request.form['Time']
+    data = request.get_json()
+    X_pred = pd.DataFrame([data])
+    y_pred = mlp.predict(X_pred)
+    return jsonify(predictions=y_pred.tolist())
+
+    time = request.args['Time']
+
+    # length = request.args['Length']
+    # airline = request.args['Airline']
+    # airportFrom = request.args['AirportFrom']
+    # airportTo = request.args['AirportTo']
+    # dayOfWeek = request.args['DayOfWeek']
+
+    # print(time, length, airline, airportFrom, airportTo, dayOfWeek)
     print(time)
+
+    return '<p>ois</p>'
 
 
 # Endpoint para obter a acurácia do modelo
 @app.route('/accuracy', methods=['GET'])
 def get_accuracy():
-    y_pred = random_forest.predict(X)
+    y_pred = mlp.predict(X)
     accuracy = accuracy_score(y, y_pred)
     return jsonify(accuracy=accuracy)
 
 # Rodar o aplicativo
 if __name__ == '__main__':
-    app.run()
+    app.run(port=8085, host='0.0.0.0', debug=True)
