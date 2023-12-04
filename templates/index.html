@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/index.css') }}" >
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/responsividade-login.css') }}" >
+
+    <title>Aviação</title>
+</head>
+<body>
+    <div class="container">
+        
+        <header>
+            <h1>LOGIN </h1>
+            <img src="../static/img/logo.svg" alt="">
+        </header>
+
+        <main>
+            <div class="login">
+                <form action="#" class="form-login">
+                    <label class="lbl-usuario">
+                        <p>Usuário</p>
+                        <input type="text" name="usuario" id="usuario">
+                    </label>
+
+                    <label class="lbl-senha">
+                        <p>Senha</p>
+                        <input type="password" name="senha" id="senha">
+                    </label>
+
+                    <a href="#" id="esqueceu-senha">ESQUECEU A SENHA?</a>
+
+                    <button type="button" id="entrar"><a href>Entrar</a></button>
+
+                </form>
+            </div>
+
+            <div class="outros-logins">
+                
+                <p id="outras-redes">Conecte-se pelas redes sociais</p>
+
+                <a class="login-outras-redes" href="{{ url_for('ir_para_home') }}">
+                    <img src="../static/img/google-icon.svg" alt="logo do google">
+                    <p>Entre com o google</p>
+                </a>
+
+                <a class="login-outras-redes" href="{{ url_for('ir_para_home') }}">
+                    <img src="../static/img/facebook-icon.svg" alt="logo do facebook">
+                    <p>Entre com o google</p>
+                </a>
+
+                <a href="{{ url_for('ir_para_cadastro') }}" id="criar-conta">Criar conta</a>
+
+            </div>
+
+        </main>
+
+
+        <footer>
+        </footer>
+    </div>
+    <script src="../static/js/index.js"></script>
+</body>
+</html>

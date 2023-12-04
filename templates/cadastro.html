@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/cadastro.css') }}" >
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/responsividade-cadastro.css') }}" >
+
+    <title>Cadastro</title>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Cadastro</h1>
+        </header>
+        <main>
+            <div class="cadastro">
+                <form class="form-cadastro">
+
+                    <label class="lbl-usuario">
+                        <p>Nome Usuário</p>
+                        <input type="text" required>
+                    </label>
+
+                    <label class="lbl-email">
+                        <p>E-mail</p>
+                        <input type="email" required>
+                    </label>
+
+                    <label class="lbl-senha">
+                        <p>Crie uma senha</p>
+                        <input type="password" required>
+                    </label>    
+
+                    <label class="lbl-senha">
+                        <p>Confirme sua senha</p>
+                        <input type="password" required>
+                    </label>
+                    
+
+                    <label class="lbl-telefone">
+                        <p>Número de celular</p>
+                        <input type="tel" maxlength="11" required>
+                    </label>
+
+                    <!-- <input type="submit" value="Criar conta" id="criar-conta"> -->
+                    <button id="criar-conta" type="button"><a href="{{ url_for('ir_para_home') }}">Criar conta</a></button>
+
+                </form>
+            </div>
+        </main>
+        <footer></footer>
+    </div>
+</body>
+</html>

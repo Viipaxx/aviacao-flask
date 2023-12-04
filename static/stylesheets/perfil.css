@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Jost', sans-serif;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    overflow-x: hidden ;
+}
+
+header {
+    background-image: url(../img/teste.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100vw;
+    border-radius: 0 0 20px 20px;
+    position: fixed;
+    top: 0;
+    height: 270px;
+}
+
+header nav ul {
+    display: flex;
+    list-style: none;
+    width: 100%;
+    justify-content: space-between;
+    padding: 5px 20px;
+}
+
+header .perfil {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+header .perfil h4 {
+    margin-bottom: 10px;
+    text-align: center;
+    background-color: #fff;
+    padding: 0 15px;
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+header .perfil p {
+    display: inline;
+    background-color: #fff;
+    padding: 0 15px;
+    border-radius: 8px;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    margin: 300px auto 0;
+    width: 100vw;
+}
+
+main table th {
+    background-color: #D9D9D9;
+}
+
+#logo {
+    width: 40px;
+}

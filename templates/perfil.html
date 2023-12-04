@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/perfil.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/perfil.css') }}" >
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/responsividade-perfil.css') }}" >
+
+    <title>Perfil</title>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('ir_para_buscar_voo') }}"><img src="../static/img/logo.svg" id="logo" alt="icon voo"></a></li>
+                    <li><a href="{{ url_for('ir_para_home') }}"><img src="../static/img/icon-x.svg"
+                                alt="icone para retornar para o inicio"></a></li>
+                </ul>
+            </nav>
+            <div class="perfil">
+                <div class="img-perfil">
+                    <img src="../static/img/foto-perfil.svg" alt="foto de perfil">
+                </div>
+                <div class="info-perfil">
+                    <h4>Ana Lu Princesinha 22</h4>
+                    <p>18 anos</p>
+                    <p>XXX.XXX.XXX-XX</p>
+                </div>
+            </div>
+        </header>
+        <main>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Históricos de voos</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td rowspan="2">
+                                        <img src="../static/img/mapa-brasil.svg" alt="voo">
+                                    </td>
+                                    <td>REC - GIG</td>
+                                    <td>05:00 - <span>07:00</span></td>
+                                </tr>
+                                <tr>
+                                    <td>AZUL</td>
+                                    <td></td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+                    </tr>
+                    <tr>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td rowspan="2">
+                                        <img src="../static/img/mapa-brasil.svg" alt="voo">
+                                    </td>
+                                    <td>REC - GIG</td>
+                                    <td>05:00 - <span>07:00</span></td>
+                                </tr>
+                                <tr>
+                                    <td>AZUL</td>
+                                    <td></td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+                    </tr>
+                    <tr>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td rowspan="2">
+                                        <img src="../static/img/mapa-brasil.svg" alt="voo">
+                                    </td>
+                                    <td>REC - GIG</td>
+                                    <td>05:00 - <span>07:00</span></td>
+                                </tr>
+                                <tr>
+                                    <td>AZUL</td>
+                                    <td></td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+                    </tr>
+                    <tr>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td rowspan="2">
+                                        <img src="../static/img/mapa-brasil.svg" alt="voo">
+                                    </td>
+                                    <td>REC - GIG</td>
+                                    <td>05:00 - <span>07:00</span></td>
+                                </tr>
+                                <tr>
+                                    <td>AZUL</td>
+                                    <td></td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+                    </tr>
+                    <tr>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td rowspan="2">
+                                        <img src="../static/img/mapa-brasil.svg" alt="voo">
+                                    </td>
+                                    <td>REC - GIG</td>
+                                    <td>05:00 - <span>07:00</span></td>
+                                </tr>
+                                <tr>
+                                    <td>AZUL</td>
+                                    <td></td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+                    </tr>
+                </tbody>
+            </table>
+        </main>
+        <footer></footer>
+    </div>
+</body>
+
+</html>

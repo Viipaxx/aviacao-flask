@@ -1,0 +1,148 @@
+@import url('https://fonts.googleapis.com/css2?family=Istok+Web:ital,wght@0,400;0,700;1,400;1,700&family=Kadwa:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Jost', sans-serif;
+}
+
+body {
+    border-radius: 40px;
+    
+    background-image: url('../img/plano-fundo-login.svg');
+    background-size: cover;
+    background-position: bottom;
+    background-repeat: no-repeat;
+
+    overflow-x: hidden;
+    width: 100vw;
+    height: 100vh;
+}
+
+header {
+    display: flex;
+    gap: 20px;
+}
+
+header h1 {
+    color: #131A26;
+    font-family: 'Jost', sans-serif;
+    font-size: 60px;
+    text-align: center;
+}
+
+main .form-login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+main .lbl-senha,
+main .lbl-usuario {
+    margin: 5px 0;
+    display: block;
+}
+
+.lbl-usuario p,
+.lbl-senha p {
+    width: max-content;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+#usuario,
+#senha {
+    border-radius: 20px;
+    border: 1px solid white;
+    width: 266px;
+    height: 32px;
+    padding: 0 30px;
+    font-size: 14px;
+
+    outline: none;
+
+}
+
+#esqueceu-senha {
+    width: 104px;
+    height: 23px;
+    flex-shrink: 0;
+    color: #131A26;
+    font-family: 'Jost', sans-serif;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+#entrar {
+    width: 191px;
+    height: 32px;
+    border-radius: 20px;
+    background-color: #FFF;
+    border: 1px solid white;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+#entrar a {
+    text-decoration: none;
+    color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+}
+
+.outros-logins {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#outras-redes {
+    color: #131A26;
+    font-size: 10px;
+    text-align: center;
+    text-transform: uppercase;
+    margin: 0 0 20px 0;
+}
+
+.login-outras-redes {
+    text-decoration: none;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+
+    border-radius: 20px;
+    background: #FFF;
+
+    width: 280px;
+    height: 32px;
+
+    margin: 0 0 20px 0;
+}
+
+.login-outras-redes p {
+    text-transform: uppercase;
+    color: #131A26;
+}
+
+#criar-conta {
+    width: 104px;
+    height: 23px;
+    flex-shrink: 0;
+    color: #131A26;
+    font-family: 'Jost', sans-serif;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-align: center;
+}

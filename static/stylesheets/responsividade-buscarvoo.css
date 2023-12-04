@@ -1,0 +1,49 @@
+@media screen and (min-width: 970px) {
+    body {
+        background-image: url(../img/image\ 8.png);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .busca-form form select {
+        width: 500px;        
+        height: 40px;
+        font-size: 21px;
+    }
+
+    .busca-form form label {
+        width: 500px;
+        font-size: 24px;
+    }
+
+    .busca-form form label input {
+        width: 300px;
+        font-size: 20px;
+    }
+
+    #buscar {
+        width: 280px;
+        height: 60px;
+        font-size: 30px;
+    }
+
+    .voo {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #fff;
+        width: 500px;
+        height: 200px;
+        display: flex;
+        flex-direction: column;
+        border-radius: 10px;
+    
+    }
+
+    .show {
+        display: none;
+        opacity: 0;
+    }
+}

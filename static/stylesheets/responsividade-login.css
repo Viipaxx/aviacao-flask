@@ -1,0 +1,43 @@
+/* Login */
+
+@media screen and (min-width: 970px) {
+    body {
+        background-image: url(../img/fundo-login-desktop.svg);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .container {
+        background-image: url(../img/fundo-form-desktop.svg);
+        background-position: bottom;
+        width: 600px;
+        height: 852px;
+        border-radius: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .container h1 {
+        color: white;
+    }
+
+    #esqueceu-senha {
+        color: white;
+    }
+
+    #outras-redes {
+        color: white;
+    }
+
+    #criar-conta {
+        color: white;
+    }
+
+    .container label {
+        color: white;
+    }
+}

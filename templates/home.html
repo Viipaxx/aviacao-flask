@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/home.css') }}" >
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/responsividade-home.css') }}" >
+    <title>Home</title>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <nav class="top-header">
+                <img src="../static/img/banner-home.svg" alt="">
+                <h1>AERODELAY+</h1>
+            </nav>
+        </header>
+        <main>
+            <div class="meu-voo">
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th class="meu-voo-th" colspan="3">Horário do meu voo:</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+                            <td rowspan="2">
+                                <img src="../static/img/mapa-brasil.svg" alt="voo">
+                            </td>
+                            <td>REC - GIG</td>
+                            <td>05:00 - <span class="atrasado">07:00</span></td>
+                        </tr>
+                        <tr>
+                            <td class="col-2">AZUL</td>
+                            <td class="atrasado">ATRASO DE: 1H</td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+            </div>
+            <div class="vistos-recentemente">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Voos vistos recentemente</th>
+                        </tr>
+                    </thead>
+                    <tbody id="teste">
+                        <tr>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td rowspan="2">
+                                            <img src="../static/img/mapa-brasil.svg" alt="voo">
+                                        </td>
+                                        <td>REC - GIG</td>
+                                        <td>05:00 - <span>07:00</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>AZUL</td>
+                                        <td></td>
+                                    </tr>
+
+                                </tbody>
+
+                            </table>
+                        </tr>
+                        <tr>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td rowspan="2">
+                                            <img src="../static/img/mapa-brasil.svg" alt="voo">
+                                        </td>
+                                        <td>REC - GIG</td>
+                                        <td>05:00 - <span>07:00</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>AZUL</td>
+                                        <td></td>
+                                    </tr>
+
+                                </tbody>
+
+                            </table>
+                        </tr>
+                        <tr>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td rowspan="2">
+                                            <img src="../static/img/mapa-brasil.svg" alt="voo">
+                                        </td>
+                                        <td>REC - GIG</td>
+                                        <td>05:00 - <span>07:00</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>AZUL</td>
+                                        <td></td>
+                                    </tr>
+
+                                </tbody>
+
+                            </table>
+                        </tr>
+                        <tr>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td rowspan="2">
+                                            <img src="../static/img/mapa-brasil.svg" alt="voo">
+                                        </td>
+                                        <td>REC - GIG</td>
+                                        <td>05:00 - <span>07:00</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>AZUL</td>
+                                        <td></td>
+                                    </tr>
+
+                                </tbody>
+
+                            </table>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+        <footer>
+            <nav>
+                <ul>
+                    <li>
+                        <a href="{{ url_for('ir_para_buscar_voo') }}">
+                            <img src="../static/img/Plane.png" alt="voos">
+                            <p>Voos</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('ir_para_perfil') }}">
+                            <img src="../static/img/Air Pilot Hat.png" alt="perfil">
+                            <p>Perfil</p>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </footer>
+    </div>
+</body>
+
+</html>
