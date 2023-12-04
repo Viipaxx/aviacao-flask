@@ -77,39 +77,27 @@ import numpy as np
 from flask import Flask, request, jsonify
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
-from sklearn.naive_bayes import GaussianNB
+from sklearn.model_selection import train_test_split
 from sklearn.neural_network import MLPClassifier
 
-# Configurações iniciais
-seed = 5
-np.random.seed(seed)
-pd.set_option('display.max_columns', 25)
+# seed = 5
+# np.random.seed(seed)
+# pd.set_option('display.max_columns', 25)
 
-# Inicializar o aplicativo Flask
-model = joblib.load('model/modelo_rede_neural.pkl')
+# model = joblib.load('model/modelo_rede_neural.pkl')
 app = Flask(__name__)
 
-# Carregar e preparar os dados (ajustar o caminho do arquivo conforme necessário)
 df = pd.read_pickle('model/modelo_rede_neural.pkl')
-# df = df.drop(['Date'], axis=1)
-# df2 = df.astype('int')
-
-# Preparar dados para o modelo
-# X = df[['Time', 'Length', 'Airline', 'AirportFrom', 'AirportTo', 'DayOfWeek']]
-# y = df['Delay']
-
-
-
-# Supondo que 'sua_coluna' seja a coluna que você está tentando converter
-# df['Airline'] = pd.to_numeric(df['Airline'], errors='coerce')
+df2 = df.astype('int')
 #
-# # Agora, você pode lidar com os valores NaN ou prosseguir com a conversão
-# df['Airline'] = df['Airline'].fillna(0).astype(int)
+X = df2[['Time', 'Length', 'Airline', 'AirportFrom', 'AirportTo', 'DayOfWeek']]
+y = df2['Delay']
 
-mlp = MLPClassifier()
-# mlp.fit(X, y)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# Endpoint para fazer previsões
+mlp = MLPClassifier(hidden_layer_sizes=(10, 10), max_iter=100, batch_size=10)
+mlp.fit(X_train, y_train)
+
 
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -117,9 +105,14 @@ def predict():
     data = request.get_json()
     X_pred = pd.DataFrame([data])
     y_pred = mlp.predict(X_pred)
-    return jsonify(predictions=y_pred.tolist())
 
     time = request.args['Time']
+    print(time)
+    print(data)
+
+    teste = np.array([[time]])
+
+    classe = df.predict(teste)
 
     # length = request.args['Length']
     # airline = request.args['Airline']
@@ -128,17 +121,19 @@ def predict():
     # dayOfWeek = request.args['DayOfWeek']
 
     # print(time, length, airline, airportFrom, airportTo, dayOfWeek)
-    print(time)
+
 
     return '<p>ois</p>'
+    # return jsonify(predictions=y_pred.tolist())
+
 
 
 # Endpoint para obter a acurácia do modelo
-@app.route('/accuracy', methods=['GET'])
-def get_accuracy():
-    y_pred = mlp.predict(X)
-    accuracy = accuracy_score(y, y_pred)
-    return jsonify(accuracy=accuracy)
+# @app.route('/accuracy', methods=['GET'])
+# def get_accuracy():
+#     y_pred = mlp.predict(X)
+#     accuracy = accuracy_score(y, y_pred)
+#     return jsonify(accuracy=accuracy)
 
 # Rodar o aplicativo
 if __name__ == '__main__':
