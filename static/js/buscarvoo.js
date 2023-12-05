@@ -1,12 +1,7 @@
-const buscar = document.querySelector('#buscar')
+const voltar = document.querySelector('#voltar')
 
-buscar.addEventListener('click', () => {
-    document.querySelector('.voo').classList.remove('show')
-    document.querySelector('.busca-form form').classList.add('show')
-})
+voltar.addEventListener('click', () => {
+    document.querySelector('.voo').classList.toggle('show')
+    document.querySelector('.busca-form form').classList.toggle('show')
 
-const favoritar = document.querySelector('#favoritar')
-
-favoritar.addEventListener('click', () => {
-    document.querySelector('.voo').classList.add('show')
 })

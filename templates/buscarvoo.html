@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/buscarvoo.css') }}" >
     <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/responsividade-buscarvoo.css') }}" >
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
 
     <title>Buscar Voo</title>
 </head>
@@ -19,93 +21,86 @@
         </header>
         <main>
             <div class="busca-form">
-                <form action = "/verificar" method="POST">
-                    <select name="pais-origem" id="pais">
-                        <option value="0">País de origem</option>
-                        <option value="1">África do Sul</option>
-                        <option value="2">Akrotiri</option>
-                        <option value="3">Albânia</option>
-                        <option value="4">Alemanha</option>
-                        <option value="5">Andorra</option>
-                        <option value="6">Angola</option>
-                        <option value="7">Anguila</option>
-                        <option value="8">Antárctida</option>
-                        <option value="9">Bermudas</option>
-                        <option value="10">Bielorrússia</option>
-                        <option value="11">Birmânia</option>
-                        <option value="12">Bolívia</option>
-                        <option value="13">Bósnia e Herzegovina</option>
-                        <option value="14">Botsuana</option>
-                        <option value="15">Brasil</option>
-                    </select>
+                <form  id="predictionForm">
 
-                    <select name="seu-estado" id="estado">
-                        <option value="0">Estado</option>
-                        <option value="1">Acre (AC)</option>
-                        <option value="2">Alagoas (AL)</option>
-                        <option value="3">Amapá (AP)</option>
-                        <option value="4">Amazonas (AM)</option>
-                        <option value="5">Bahia (BA)</option>
-                        <option value="6">Ceará (CE)</option>
-                        <option value="7">Distrito Federal (DF)</option>
-                        <option value="8">Espírito Santo (ES)</option>
-                        <option value="9">Goiás (GO)</option>
-                        <option value="10">Maranhão (MA)</option>
-                        <option value="11">Mato Grosso (MT)</option>
-                        <option value="12">Mato Grosso do Sul (MS)</option>
-                        <option value="13">Minas Gerais (MG)</option>
-                        <option value="14">Pará (PA)</option>
-                    </select>
 
-                    <label>
-                        <p>Informe a companhia aérea:</p>
-                        <input type="text" name="companhia-aerea" id="companhia">
+                    <label for="Airline">
+                        <p>Airline:</p>
+                        <input type="text" name="Airline" id="Airline" value="10"  required>
                     </label>
 
-                    <label>
-                        <p>Digite o numero do seu voo:</p>
-                        <input type="tel" name="numero-voo" id="voo">
+                    <label for="Flight">
+                        <p>Flight:</p>
+                        <input type="text" id="Flight" name="Flight"  value="43" required>
                     </label>
 
-                    <button type="submit">Buscar <img src="../static/img/lupa-icon.svg" alt="lupa"></button>
+                    <label for="AirportFrom">
+                        <p>Airport From:</p>
+                        <input type="text" id="AirportFrom" name="AirportFrom" value="6"  required>
+                    </label>
+
+                    <label for="AirportTo">
+                        <p>Airport To:</p>
+                        <input type="text" id="AirportTo" name="AirportTo" value="6"  required>
+                    </label>
+
+                    <label for="DayOfWeek">
+                        <p>Day Of Week:</p>
+                        <input type="text" id="DayOfWeek" name="DayOfWeek" value="3"  required>
+                    </label>
+
+                    <label for="Time">
+                        <p>Time:</p>
+                        <input type="text" id="Time" name="Time" value="1000"  required>
+                    </label>
+
+                    <label for="Length">
+                        <p>Lenght:</p>
+                        <input type="text" id="Length" name="Length" value="210"  required>
+                    </label>
+
+                    <button type="button" onclick="predict()">Predict Delay</button>
+
                 </form>
 
                 <div class="voo show">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th><h3>Resultado da Busca</h3></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <table>
-                            <tbody>
-                                <tr>
-                                    <td rowspan="2">
-                                        <img src="../static/img/mapa-brasil.svg" alt="voo">
-                                    </td>
-                                    <td>REC - GIG</td>
-                                    <td>05:00 - <span>07:00</span></td>
-                                </tr>
-                                <tr>
-                                    <td>AZUL</td>
-                                    <td></td>
-                                </tr>
 
-                            </tbody>
+                    <div id="predictionResult"></div>
 
-                    </table>
-
-                    <button id="favoritar" type="button"><a href="./home.html">Favoritar</a></button>
+                    <button type="button" id="voltar">Voltar</button>
 
                 </div>
+
+
 
             </div>
         </main>
         <footer></footer>
     </div>
-    <script defer src="../static/js/buscarvoo.js"></script>
+        <script>
+        function predict() {
+            // Obter dados do formulário
+            var formData = $('#predictionForm').serialize();
+            document.querySelector('.voo').classList.remove('show')
+            document.querySelector('.busca-form form').classList.add('show')
+
+
+            // Fazer a solicitação AJAX para o servidor Flask
+            $.ajax({
+                type: 'POST',
+                url: '/predict',
+                data: formData,
+                success: function (response) {
+                    // Exibir o resultado da previsão
+                    $('#predictionResult').text('Prediction: ' + response.prediction);
+                },
+                error: function (error) {
+                    console.error('Erro na solicitação:', error.responseText);
+                }
+            });
+        }
+    </script>
+    <script src="../static/js/buscarvoo.js"></script>
 </body>
 
 </html>

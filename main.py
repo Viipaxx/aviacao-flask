@@ -1,134 +1,94 @@
-# from flask import Flask, render_template, request, redirect, url_for
-# from joblib import dump, load
-# from sklearn import svm
-#
-# # clf = svm.SVC()
-# #
-# # dump(clf, 'model/modelo_rede_neural.pkl')
-# # clf = load('model/modelo_rede_neural.pkl')
-#
-# t = [1, 2, 3, 4, 5, 6]
-# c = ['a', 'b', 'c', 'd', 'e', 'f']
-#
-# app = Flask(__name__)
-#
-# @app.route('/verificar', methods=['POST', 'GET'])
-# def verificar():
-#     pais = request.form.get('pais-origem')
-#     p = request.form['pais-origem']
-#     estado = request.form.get('seu-estado')
-#     companhia = request.form.get('companhia-aerea')
-#     voo = request.form.get('numero-voo')
-#
-#     return f'<p>{pais} {estado} {companhia} {voo}</p>'
-#
-#
-# @app.route("/")
-# def index():
-#     return render_template('index.html')
-#
-#
-# # @app.route("/buscar_voo")
-# # def buscar_voo():
-# #     return render_template('buscarvoo.html')
-#
-#
-# @app.route('/buscar_voo')
-# def ir_para_buscar_voo():
-#     return render_template('buscarvoo.html')
-#
-#
-# @app.route("/perfil")
-# def perfil():
-#     return render_template('perfil.html')
-#
-#
-# @app.route('/perfil')
-# def ir_para_perfil():
-#     return render_template('perfil.html')
-#
-#
-# @app.route('/cadastro')
-# def ir_para_cadastro():
-#     return render_template('cadastro.html')
-#
-#
-# @app.route('/cadastro')
-# def cadastro():
-#     return render_template('cadastro.html')
-#
-#
-# @app.route('/home')
-# def home():
-#     return render_template('home.html')
-#
-#
-# @app.route('/home')
-# def ir_para_home():
-#     return render_template('home.html')
-#
-#
-# if __name__ == "__main__":
-#     app.run(debug=True)
-
-import joblib
+from flask import Flask, render_template, request, jsonify
 import pandas as pd
-import numpy as np
-from flask import Flask, request, jsonify
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import accuracy_score
-from sklearn.model_selection import train_test_split
-from sklearn.neural_network import MLPClassifier
-from sklearn.preprocessing import StandardScaler
+import joblib
 
-# seed = 5
-# np.random.seed(seed)
-# pd.set_option('display.max_columns', 25)
-
-# model = joblib.load('model/modelo_rede_neural.pkl')
 app = Flask(__name__)
 
-df = pd.read_pickle('model/modelo_rede_neural.pkl')
+model = joblib.load('modeloMLPClassifier.pkl')
+
 dados = pd.read_csv('Airlines_Processado.csv')
-#
-X = [['Time', 'Length', 'Airline', 'AirportFrom', 'AirportTo', 'DayOfWeek']]
-y = ['Delay']
 
-# X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
-mlp = MLPClassifier(hidden_layer_sizes=(10, 10), max_iter=100, batch_size=10)
-# mlp.fit(X_train, y_train)
-
-
-@app.route('/predict', methods=['POST'])
+@app.route('/predict', methods=['POST', 'GET'])
 def predict():
+    try:
+        # Obter dados do formulário
+        data = request.form.to_dict()
+        app.logger.info("Dados recebidos: %s", data)
 
-    data = request.get_json()
-    X_pred = pd.DataFrame([data])
-    # y_pred = mlp.predict(X_pred)
+        # Preparar dados para fazer a previsão
+        input_data = pd.DataFrame({
+            'Airline': [data['Airline']],
+            'Flight': [data['Flight']],
+            'AirportFrom': [data['AirportFrom']],
+            'AirportTo': [data['AirportTo']],
+            'DayOfWeek': [data['DayOfWeek']],
+            'Time': [data['Time']],
+            'Length': [data['Length']]
+        })
 
-    print(X_pred)
+        # Fazer a previsão
+        prediction = model.predict(input_data)[0]
+        app.logger.info("Previsão: %s", prediction)
 
-    time = request.args['Time']
-    length = request.args['Length']
-    airline = request.args['Airline']
-    airportFrom = request.args['AirportFrom']
-    airportTo = request.args['AirportTo']
-    dayOfWeek = request.args['DayOfWeek']
+        # Retornar a previsão como JSON
+        return jsonify({'prediction': str(prediction)})
+
+    except Exception as e:
+        app.logger.error("Erro: %s", str(e))
+        return jsonify({'error': str(e)})
+
+@app.route('/verificar', methods=['POST', 'GET'])
+def verificar():
+    pais = request.form.get('pais-origem')
+    p = request.form['pais-origem']
+    estado = request.form.get('seu-estado')
+    companhia = request.form.get('companhia-aerea')
+    voo = request.form.get('numero-voo')
+
+    return f'<p>{pais} {estado} {companhia} {voo}</p>'
 
 
-    return f'<h3>tempo: {time}; distância: {length}; companhia: {airline}; local de partida: {airportFrom}; destino: {airportTo}; dia: {dayOfWeek}</h3>'
-    # return jsonify(predictions=y_pred.tolist())
+@app.route("/")
+def index():
+    return render_template('index.html')
 
 
+@app.route('/buscar_voo')
+def ir_para_buscar_voo():
+    return render_template('buscarvoo.html')
 
-# Endpoint para obter a acurácia do modelo
-# @app.route('/accuracy', methods=['GET'])
-# def get_accuracy():
-#     y_pred = mlp.predict(X)
-#     accuracy = accuracy_score(y, y_pred)
-#     return jsonify(accuracy=accuracy)
 
-# Rodar o aplicativo
-if __name__ == '__main__':
-    app.run(port=8085, host='0.0.0.0', debug=True)
+@app.route("/perfil")
+def perfil():
+    return render_template('perfil.html')
+
+
+@app.route('/perfil')
+def ir_para_perfil():
+    return render_template('perfil.html')
+
+
+@app.route('/cadastro')
+def ir_para_cadastro():
+    return render_template('cadastro.html')
+
+
+@app.route('/cadastro')
+def cadastro():
+    return render_template('cadastro.html')
+
+
+@app.route('/home')
+def home():
+    return render_template('home.html')
+
+
+@app.route('/home')
+def ir_para_home():
+    return render_template('home.html')
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
+
+
